@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block main %}
+    <div class="container text-center">
+        <h3>Welcome {{ session['user']['display_name'] }}</h3>
+        <h3>Your role : {{ session['user']['role'] }}</h3>
+        <h3>Your email : {{ session['user']['email'] }}</h3>
+        <img src="{{ session['user']['photo_url'] }}" alt="">
+    </div>
+{% endblock main %}

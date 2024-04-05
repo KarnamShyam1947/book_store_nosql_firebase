@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Book {% endblock title %}
+
+{% block main %}
+    <form action="" method="post" enctype="multipart/form-data" class="mt-5 container bg-light p-5 border-2 ">
+        
+        <h3 class="text-center">Edit Book</h3>
+
+        {% include 'components/alerts.html' %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Book Title</label>
+            <input type="text" value="{{ book['title'] }}" readonly name="title" id="title" class="form-control">
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label for="isbn" class="form-label">Book isbn</label>
+                <input type="text" value="{{ book['isbn'] }}" readonly name="isbn" id="isbn" class="form-control">
+            </div>
+            
+            <div class="col">
+                <label for="pageCnt" class="form-label">Book page count</label>
+                <input type="text" value="{{ book['page_count'] }}" name="pageCnt" id="pageCnt" class="form-control">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label for="CoverPage" class="form-label">Change Book CoverPage</label>
+                <input type="file" name="coverPage" id="coverPage" class="form-control">
+                <input type="hidden" name="oldThumbUrl" value="{{ book['thumb_url'] }}">
+            </div>
+            
+            <div class="col">
+                <label for="bookPdf" class="form-label">Change Book Pdf</label>
+                <input type="file" name="bookPdf" id="bookPdf" class="form-control">
+                <input type="hidden" name="oldBookPdf" value="{{ book['file_url'] }}">
+            </div>
+        </div>
+
+        <div class="row g-2 mb-3">
+            <div class="col card p-3 me-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fs-5">Authors</span>
+                    <button id="author-btn" type="button" class="btn btn-success fw-bold">+</button>
+                </div>
+                <div id="author-inputs">
+                    
+                </div>
+            </div>
+
+            <div class="col card p-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fs-5">Categories</span>
+                    <button id="category-btn" type="button" class="btn btn-success fw-bold">+</button>
+                </div>
+                <div id="category-inputs">
+                    
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="authors" value="{{ authors }}">
+        <input type="hidden" id="categories" value="{{ categories }}">
+
+        <span>Enter description</span>
+        <textarea class="form-control " name="desc"  rows="5">
+            {{ book['description'] }}
+        </textarea>
+        
+        <div class="d-grid">
+            <input type="submit" class="btn btn-primary mt-3">
+        </div>
+    </form>
+
+    <script>
+
+        let categoryInputs = document.getElementById("category-inputs");
+        let authorInputs = document.getElementById("author-inputs");
+        let categoryBtn = document.getElementById("category-btn");
+        let authorBtn = document.getElementById("author-btn");
+
+        window.onload = function() {
+            let authors = document.getElementById("authors").value.replace('[', '').replaceAll('\'',"").replace(']', '');
+            authors = authors.split(",");
+            for(let i = 0; i < authors.length; i++) {
+                addInput(authorInputs, "author", authors[i]);
+            }
+            
+            let categories = document.getElementById("categories").value.replace('[', '').replaceAll('\'',"").replace(']', '');
+            categories = categories.split(",");
+            for(let i = 0; i < categories.length; i++) {
+                addInput(categoryInputs, "category", categories[i]);
+            }
+        }
+
+        authorBtn.onclick = function() {
+            addInput(authorInputs, "author", "");
+        }
+        
+        categoryBtn.onclick = function() {
+            addInput(categoryInputs, "category", "");
+        }
+
+        function addInput(container, name, value) {
+            let inputs = document.createElement("div");
+            inputs.classList.add("row");
+            inputs.classList.add("mb-3");
+            inputs.classList.add("me-1");
+
+            let textContainer = document.createElement("div");
+            textContainer.classList.add("col-11")
+            
+            let btnContainer = document.createElement("div");
+            btnContainer.classList.add("col-1")
+
+            let textInput = document.createElement("input");
+            textInput.classList.add("form-control");
+            textInput.type = "text"
+            textInput.name = name;
+            textInput.value = value;
+            textInput.placeholder = "Enter " + name + " name"
+
+            let btn = document.createElement("button");
+            btn.classList.add("btn");
+            btn.classList.add("btn-danger");
+            btn.type = "button";
+            btn.innerText = 'X' ;
+            btn.onclick = function() {
+                event.target.parentNode.parentNode.remove();
+            }
+
+            textContainer.appendChild(textInput);
+            btnContainer.appendChild(btn);
+
+            inputs.appendChild(textContainer);
+            inputs.appendChild(btnContainer);
+            
+            container.appendChild(inputs);
+            
+        }
+    </script>
+{% endblock main %}

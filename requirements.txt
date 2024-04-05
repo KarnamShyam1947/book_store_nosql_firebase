@@ -1,0 +1,5 @@
+firebase_admin==6.4.0
+Flask==2.3.2
+Flask==2.0.1
+Pyrebase==3.0.27
+Pyrebase4==4.7.1

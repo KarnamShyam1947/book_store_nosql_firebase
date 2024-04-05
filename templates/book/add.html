@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Book {% endblock title %}
+
+{% block main %}
+    <form action="" method="post" enctype="multipart/form-data" class="mt-5 container bg-light p-5 border-2 ">
+
+        <h1 class="text-center">Add Book</h1>
+
+        {% include 'components/alerts.html' %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Book Title</label>
+            <input type="text" name="title" id="title" class="form-control">
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label for="isbn" class="form-label">Book isbn</label>
+                <input type="text" name="isbn" id="isbn" class="form-control">
+            </div>
+            
+            <div class="col">
+                <label for="pageCnt" class="form-label">Book page count</label>
+                <input type="text" name="pageCnt" id="pageCnt" class="form-control">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label for="CoverPage" class="form-label">Book CoverPage</label>
+                <input type="file" name="coverPage" id="coverPage" class="form-control">
+            </div>
+            
+            <div class="col">
+                <label for="bookPdf" class="form-label">Book Pdf</label>
+                <input type="file" name="bookPdf" id="bookPdf" class="form-control">
+            </div>
+        </div>
+
+        <div class="row g-2 mb-3">
+            <div class="col card p-3 me-3">
+                <div class="d-flex justify-content-between ">
+                    <span class="fs-5">Authors</span>
+                    <button id="author-btn" type="button" class="btn btn-success fw-bold">+</button>
+                </div>
+                <div id="author-inputs">
+                    
+                </div>
+            </div>
+
+            <div class="col card p-3">
+                <div class="d-flex justify-content-between ">
+                    <span class="fs-5">Categories</span>
+                    <button id="category-btn" type="button" class="btn btn-success fw-bold">+</button>
+                </div>
+                <div id="category-inputs">
+                    
+                </div>
+            </div>
+        </div>
+
+        <span>Enter description</span>
+        <textarea name="desc" id="" cols="30" rows="5" class="form-control"></textarea>
+        
+        <div class="d-grid">
+            <input type="submit" class="btn btn-primary mt-3">
+        </div>
+    </form>
+
+    <script>
+        let categoryInputs = document.getElementById("category-inputs");
+        let authorInputs = document.getElementById("author-inputs");
+        let categoryBtn = document.getElementById("category-btn");
+        let authorBtn = document.getElementById("author-btn");
+
+        authorBtn.onclick = function() {
+            addInput(authorInputs, "author");
+        }
+        
+        categoryBtn.onclick = function() {
+            addInput(categoryInputs, "category");
+        }
+
+        function addInput(container, name) {
+            let inputs = document.createElement("div");
+            inputs.classList.add("row");
+            inputs.classList.add("mb-3");
+
+            let textContainer = document.createElement("div");
+            textContainer.classList.add("col-10")
+            
+            let btnContainer = document.createElement("div");
+            btnContainer.classList.add("col-1")
+
+            let textInput = document.createElement("input");
+            textInput.classList.add("form-control");
+            textInput.type = "text"
+            textInput.name = name;
+            textInput.placeholder = "Enter " + name + " name"
+
+            let btn = document.createElement("button");
+            btn.classList.add("btn");
+            btn.classList.add("btn-danger");
+            btn.type = "button";
+            btn.innerText = 'X' ;
+            btn.onclick = function() {
+                event.target.parentNode.parentNode.remove();
+            }
+
+            textContainer.appendChild(textInput);
+            btnContainer.appendChild(btn);
+
+            inputs.appendChild(textContainer);
+            inputs.appendChild(btnContainer);
+            
+            container.appendChild(inputs);
+            
+        }
+    </script>
+{% endblock main %}

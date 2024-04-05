@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock title %}
+
+{% block main %}
+    <div style="height: calc(100vh - 75px);"  class="d-flex justify-content-center align-items-center ">
+        <div style="width: 700px;" class="card p-4">
+            <h1 class="text-center">Login Page</h1>
+            
+            {% include 'components/alerts.html' %}
+
+            <form action="" method="post">
+            
+                    <label class="form-label mt-3">Email</label>
+                    <input class="form-control" type="email" name="email">
+            
+            
+                    <label class="form-label mt-3">Password</label>
+                    <input class="form-control" type="password" name="password">
+            
+                    <div class="d-grid mt-5">
+                        <input class="btn btn-info" type="submit" value="Login" >
+                    </div>
+            </form>
+            <p class="text-center mt-3">
+                Don't have account 
+                <a href="register">register</a>
+            </p>
+        </div>
+    </div>
+{% endblock main %}

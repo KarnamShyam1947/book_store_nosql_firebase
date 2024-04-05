@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Register {% endblock title %}
+
+{% block main %}
+    <div style="height: calc(100vh - 75px);"  class="d-flex justify-content-center align-items-center ">
+        <div style="width: 700px;" class="card p-4">
+            <div class="card-head">
+                <h1 class="text-center">Register Page</h1>
+            </div>
+            
+            {% include 'components/alerts.html' %}
+
+            <form action="" method="post" enctype="multipart/form-data">
+            
+                    <label class="form-label mt-3">Username</label>
+                    <input class="form-control" type="text" name="username">
+
+                    <label class="form-label mt-3">Email</label>
+                    <input class="form-control" type="email" name="email">
+            
+            
+                    <label class="form-label mt-3">Password</label>
+                    <input class="form-control" type="password" name="password">
+                    
+                    <label class="form-label mt-3">Profile</label>
+                    <input class="form-control" type="file" name="profile">
+            
+                    <div class="d-grid mt-5">
+                        <input class="btn btn-info" type="submit" value="Register" >
+                    </div>
+            </form>
+            <p class="text-center mt-3">
+                Already have an account 
+                <a href="login">login</a>
+            </p>
+        </div>
+    </div>
+{% endblock main %}

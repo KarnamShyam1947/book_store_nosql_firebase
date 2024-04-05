@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} Book Details {% endblock title %}
+
+{% block main %}
+    <h1>Book Details</h1>
+    <hr>
+    <div class="container">
+        <div class="d-flex">
+            <div class="col">
+                <img style="height: 500px; width: 400px; " src="{{ book['thumb_url'] }}" alt="">
+            </div>
+            <div class="col-8">
+                <p class="fs-3 fw-bold">{{ book['title'] }}</p>
+                <p class="fs-5">{{ book['description'] }}</p>
+
+                <p>
+                    <span class="fw-bold">
+                        ISBN
+                    </span> : {{ book['isbn'] }}
+                </p>
+
+                <p>
+                    <span class="fw-bold">
+                        page count
+                    </span> : {{ book['page_count'] }}
+                </p>
+
+                <p>
+                    <span class="fw-bold">
+                        Authors
+                    </span> : 
+                    {% for author in book['authors'] %}
+                        <span class="">{{ author }}, </span>
+                    {% endfor %}
+                </p>
+
+                <p>
+                    <span class="fw-bold">
+                        Categories
+                    </span> :
+                    {% for category in book['categories'] %}
+                        <span class="badge text-bg-primary">{{ category }}</span>
+                    {% endfor %}
+                </p>
+
+                <a target="_blank" href="{{ book['file_url'] }}" class="btn btn-success">
+                    read book
+                </a>
+
+                {% if session['user']['role'] == 'admin' %}
+                    <a href="/edit/{{ book['isbn'] }}" class="btn btn-info">
+                        Edit book
+                    </a>
+                    <a href="/delete/{{ book['isbn'] }}" class="btn btn-danger">
+                        Delete book
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock main %}

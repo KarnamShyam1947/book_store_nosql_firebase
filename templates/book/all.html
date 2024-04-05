@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} All Books {% endblock title %}
+
+{% block main %}
+    <h1 class="text-center pt-3" >All Books</h1>
+    <!-- <hr> -->
+    <div class="container">
+
+        {% include 'components/alerts.html' %}
+
+        <div class="d-flex flex-wrap justify-content-center ">
+
+            {% for book in books %}
+                <div class="card m-2" style="width: 25rem;">
+                    <img src="{{ book['thumb_url'] }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="book/{{ book['isbn'] }}">{{ book['title'] }}</a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock main %}
